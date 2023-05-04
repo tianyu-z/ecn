@@ -286,7 +286,10 @@ def run(args):
                    group=args.wandb_group)
         wandb.config.update(args)
         wandb.config.update(FLAGS)
-    flags_dict = {flag.name: flag.value for flag in FLAGS.flags_by_module_dict()['main.py']}
+    
+    main_list = [k for k in FLAGS.flags_by_module_dict().keys() if 'main.py' in k]
+    assert len(main_list) == 1, f'found multiple main.py files: {main_list}'
+    flags_dict = {flag.name: flag.value for flag in FLAGS.flags_by_module_dict()[main_list[0]]}
     args_dict = args.__dict__
     pprint(args_dict)
     pprint(flags_dict)
