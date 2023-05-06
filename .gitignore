@@ -80,7 +80,7 @@ celerybeat-schedule
 *.sage.py
 
 # dotenv
-.env
+# .env
 
 # virtualenv
 .venv
@@ -137,4 +137,3 @@ merge.yaml
 merge.sh
 
 ecn-env/
-.vscode/launch.json
