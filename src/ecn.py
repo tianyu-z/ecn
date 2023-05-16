@@ -182,7 +182,7 @@ def run_episode(
         agent = (initial_agent + t) % 2
         agent_model = agent_models[agent]
         (
-            nodes,
+            nodes,  # list (len = 1 + 3 + 6) of tensor of shape (batch_size, 1)
             term_a,
             s.m_prev,
             this_proposal,
@@ -396,7 +396,9 @@ def run(args):
     prop_mask_count = np.array([0, 0])
     while episode < args.episodes:
         render = episode % args.render_every_episode == 0
-        split = 2 if FLAGS.randomize_first else 1
+        split = (
+            2 if FLAGS.randomize_first else 1
+        )  # split means how many times to run the episode
         agent_losses = [0, 0]
         both_rewards = []
 
@@ -410,7 +412,7 @@ def run(args):
                 random_state=train_r,
             )
             (
-                actions,
+                actions,  # list (max_time) of list (1+3+6) of tensors of shape (batch_size, 1)
                 rewards,
                 steps,
                 alive_masks,
